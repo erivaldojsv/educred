@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
     buttonInicial: {
         marginTop: 10,
         height: 50,
-        backgroundColor: 'blue',
+        borderWidth: 1,
+        backgroundColor: "blue",
+        borderColor: "black",
         borderRadius: 10,
         paddingHorizontal: 24,
         alignItems: 'center',

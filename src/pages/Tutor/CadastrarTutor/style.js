@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
         paddingTop: Platform.OS === "ios" ? 0 : 50
     },
     title1: {
@@ -62,6 +63,18 @@ const styles = StyleSheet.create({
     linkSubscribe: {
         color: "#1877f2",
         fontSize: 16,
+    },
+    textPrivate: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginVertical: 35,
+      justifyContent: 'center',
+    },
+    color_textPrivate: {
+      fontSize: 13,
+      fontWeight: '400',
+      fontFamily: 'normal',
+      color: 'grey',
     },
 });
 

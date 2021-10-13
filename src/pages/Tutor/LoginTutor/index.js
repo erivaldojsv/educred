@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import { 
     View,
     Text,
-    TextInput,
-    TouchableOpacity,
     KeyboardAvoidingView,
     Platform 
 } from "react-native";
+
+import FormInput from '../../../../components/FormInput';
+import FormButton from '../../../../components/FormButton';
+import SocialButton from '../../../../components/SocialButton';
 
 import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function LoginTutor({ navigation }){
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
+    const [email, setEmail] = useState()
+    const [senha, setSenha] = useState()
     const [errorLogin, setErrorLogin] = useState("")
 
     const loginFirebase = ()=>{
@@ -49,25 +51,25 @@ export default function LoginTutor({ navigation }){
         >
             <Text style={styles.title1}>Olá Tutor!</Text>
             <Text style={styles.title2}>Faça seu login abaixo!</Text>
-            <TouchableOpacity style={styles.inputOpacity}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu e-mail"
-                    type="text"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.inputOpacity}>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Digite sua senha"
-                    type="text"
-                    onChangeText={(text) => setSenha(text)}
-                    value={senha}
-                />
-            </TouchableOpacity>
+            
+            <FormInput
+                labelValue={email}
+                onChangeText={(text) => setEmail(text)}
+                placeholderText="Digite seu e-mail"
+                iconType="user"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+            />
+
+            <FormInput
+              labelValue={senha}
+              onChangeText={(text) => setSenha(text)}
+              placeholderText="Digite sua senha"
+              iconType="lock"
+              secureTextEntry={true}
+            />
+
             {errorLogin === true
             ?
             <View style={styles.contentAlert}>
@@ -81,32 +83,52 @@ export default function LoginTutor({ navigation }){
             :
             <View />
             }
+            
             { email==="" || senha === ""
             ?
-            <TouchableOpacity
-                disabled={true}
-                style={styles.buttonLogin}
-            >
-                <Text style={styles.textButtonLogin}>Entrar</Text>
-            </TouchableOpacity>
-            :            
-            <TouchableOpacity
-                style={styles.buttonLogin}
+            <FormButton
+                disabled={disabled}
+                buttonTitle="Entrar"
+            />
+            :   
+            <FormButton
+                buttonTitle="Entrar"
                 onPress={loginFirebase}
-            >
-                <Text style={styles.textButtonLogin}>Entrar</Text>
-            </TouchableOpacity>
+            />            
             }
+
             <Text style={styles.registration}>
                 Ainda não tenho cadastro! 
-                &nbsp;<Text
-                style={styles.linkSubscribe}
-                onPress={()=> navigation.navigate("Cadastrar Tutor")}
-                >
-                    Quero me Cadastrar!
-                </Text>
+                &nbsp;
+            <Text
+            style={styles.linkSubscribe}
+            onPress={()=> navigation.navigate("Cadastrar Tutor")}
+            >
+                Quero me Cadastrar!
             </Text>
-            <View style={{height:100}}/>
+            </Text>
+            
+            <View style={{height:30}}/>
+            
+            {Platform.OS === 'android' ? (
+                <View>
+                <SocialButton
+                    buttonTitle="Sign Up with Facebook"
+                    btnType="facebook"
+                    color="#4867aa"
+                    backgroundColor="#e6eaf4"
+                    onPress={() => {}}
+                />
+
+                <SocialButton
+                    buttonTitle="Sign Up with Google"
+                    btnType="google"
+                    color="#de4d41"
+                    backgroundColor="#f5e7ea"
+                    onPress={() => {}}
+                />
+                </View>
+            ) : null}   
         </KeyboardAvoidingView>
     );
 }

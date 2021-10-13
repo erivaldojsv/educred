@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
         paddingTop: Platform.OS === "ios" ? 0 : 50
     },
     title1: {
