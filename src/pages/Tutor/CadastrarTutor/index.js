@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     Platform
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 import FormInput from '../../../../components/FormInput';
 import FormButton from '../../../../components/FormButton';
@@ -17,6 +18,7 @@ import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CadastrarTutor({ navigation }){
+    const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [confirmaSenha, setConfirmaSenha] = useState();
@@ -39,6 +41,7 @@ export default function CadastrarTutor({ navigation }){
     }
 
     return(
+        <ScrollView>
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
@@ -46,10 +49,19 @@ export default function CadastrarTutor({ navigation }){
             <Text style={styles.title1}>Criar uma Conta</Text>
 
             <FormInput
+                labelValue={nome}
+                onChangeText={(text) => setNome(text)}
+                placeholderText="Digite seu nome"
+                iconType="user"
+                autoCapitalize="none"
+                autoCorrect={false}
+            />
+
+            <FormInput
                 labelValue={email}
                 onChangeText={(text) => setEmail(text)}
                 placeholderText="Digite seu e-mail"
-                iconType="user"
+                iconType="mail"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -125,7 +137,7 @@ export default function CadastrarTutor({ navigation }){
             {Platform.OS === 'android' ? (
                 <View>
                 <SocialButton
-                    buttonTitle="Sign Up with Facebook"
+                    buttonTitle="Acessar com Facebook"
                     btnType="facebook"
                     color="#4867aa"
                     backgroundColor="#e6eaf4"
@@ -133,7 +145,7 @@ export default function CadastrarTutor({ navigation }){
                 />
 
                 <SocialButton
-                    buttonTitle="Sign Up with Google"
+                    buttonTitle="Acessar com Google"
                     btnType="google"
                     color="#de4d41"
                     backgroundColor="#f5e7ea"
@@ -143,5 +155,6 @@ export default function CadastrarTutor({ navigation }){
             ) : null}   
             <View style={{height:30}}/>
         </KeyboardAvoidingView>
+        </ScrollView>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { 
     View,
     Text,
@@ -8,21 +8,31 @@ import {
     Platform
 } from "react-native";
 
+import FormInput from '../../../../components/FormInput';
+import FormButton from '../../../../components/FormButton';
+
 import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function NovoUsuario({ navigation }){
-    const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [errorCadastrar, setErrorCadastrar] = useState("")
+    const [nome, setNome] = useState();
+    const [email, setEmail] = useState();
+    const [senha, setSenha] = useState();
+    const [confirmaSenha, setConfirmaSenha] = useState();
+    const [errorCadastrar, setErrorCadastrar] = useState("");
 
     const database = firebase.firestore()
 
     const cadastrarJogadorFirebase = () => {
         firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((userCredential) => {
+            database.collection("usuarios")
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                    nome,
+                    email
+                })
 
             // Signed in
             let usuario = userCredential.user;
@@ -45,34 +55,41 @@ export default function NovoUsuario({ navigation }){
         >
             <Text style={styles.title1}>Olá Tutor!</Text>
             <Text style={styles.title2}>Cadastre um Jogador!</Text>
-            <TouchableOpacity style={styles.inputOpacity}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu nome"
-                    type="text"
-                    onChangeText={(text) => setNome(text)}
-                    value={nome}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.inputOpacity}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu e-mail"
-                    type="text"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.inputOpacity}>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Digite sua senha"
-                    type="text"
-                    onChangeText={(text) => setSenha(text)}
-                    value={senha}
-                />
-            </TouchableOpacity>
+            <FormInput
+                labelValue={nome}
+                onChangeText={(text) => setNome(text)}
+                placeholderText="Digite o nome do jogador"
+                iconType="user"
+                autoCapitalize="none"
+                autoCorrect={false}
+            />
+
+            <FormInput
+                labelValue={email}
+                onChangeText={(text) => setEmail(text)}
+                placeholderText="Digite o e-mail"
+                iconType="mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+            />
+
+            <FormInput
+                labelValue={senha}
+                onChangeText={(text) => setSenha(text)}
+                placeholderText="Digite a senha"
+                iconType="lock"
+                secureTextEntry={true}
+            />
+
+            <FormInput
+              labelValue={confirmaSenha}
+              onChangeText={(text) => setConfirmaSenha(text)}
+              placeholderText="Confirme a senha"
+              iconType="lock"
+              secureTextEntry={true}
+            />
+
             {errorCadastrar === true
             ?
             <View style={styles.contentAlert}>
@@ -86,21 +103,18 @@ export default function NovoUsuario({ navigation }){
             :
             <View />
             }
+
             { email==="" || senha === ""
             ?
-            <TouchableOpacity
+            <FormButton
                 disabled={true}
-                style={styles.buttonCadastrar}
-            >
-                <Text style={styles.textButtonCadastrar}>Cadastrar</Text>
-            </TouchableOpacity>
+                buttonTitle="Cadastrar"
+            />
             :            
-            <TouchableOpacity
-                style={styles.buttonCadastrar}
+            <FormButton
+                buttonTitle="Cadastrar"
                 onPress={cadastrarJogadorFirebase}
-            >
-                <Text style={styles.textButtonCadastrar}>Cadastrar</Text>
-            </TouchableOpacity>
+            />
             }
             <View style={{height:"30%"}}/>
         </KeyboardAvoidingView>
