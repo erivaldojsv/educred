@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingTop: Platform.OS === "ios" ? 0 : 50
     },
+    viewTitle1: {
+        alignItems:'center',
+    },
     title1: {
         fontSize: 35,
         color: "gray",

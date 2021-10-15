@@ -4,10 +4,10 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
+    ScrollView,
     KeyboardAvoidingView,
     Platform
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 import FormInput from '../../../../components/FormInput';
 import FormButton from '../../../../components/FormButton';
@@ -18,15 +18,26 @@ import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CadastrarTutor({ navigation }){
+    const [nivelAcesso, setNivelAcesso] = useState('Tutor');
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [confirmaSenha, setConfirmaSenha] = useState();
     const [errorCadastrar, setErrorCadastrar] = useState("");
 
+    const database = firebase.firestore()
+
     const cadastrarFirebase = () => {
         firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((userCredential) => {
+            database.collection("usuarios")
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                    nivelAcesso,
+                    nome,
+                    email
+                })
+
             // Signed in
             let usuario = userCredential.user;
             navigation.navigate("Inicial Tutor", { idUsuario: usuario.uid })
@@ -41,20 +52,18 @@ export default function CadastrarTutor({ navigation }){
     }
 
     return(
-        <ScrollView>
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
         >
-            <Text style={styles.title1}>Criar uma Conta</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.viewTitle1}><Text style={styles.title1}>Criar uma Conta</Text></View>
 
             <FormInput
                 labelValue={nome}
                 onChangeText={(text) => setNome(text)}
                 placeholderText="Digite seu nome"
                 iconType="user"
-                autoCapitalize="none"
-                autoCorrect={false}
             />
 
             <FormInput
@@ -154,7 +163,7 @@ export default function CadastrarTutor({ navigation }){
                 </View>
             ) : null}   
             <View style={{height:30}}/>
-        </KeyboardAvoidingView>
         </ScrollView>
+        </KeyboardAvoidingView>
     )
 }

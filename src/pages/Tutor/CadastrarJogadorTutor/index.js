@@ -16,6 +16,7 @@ import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function NovoUsuario({ navigation }){
+    const [nivelAcesso, setNivelAcesso] = useState('Jogador');
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
@@ -30,6 +31,7 @@ export default function NovoUsuario({ navigation }){
             database.collection("usuarios")
                 .doc(firebase.auth().currentUser.uid)
                 .set({
+                    nivelAcesso,
                     nome,
                     email
                 })
@@ -60,8 +62,6 @@ export default function NovoUsuario({ navigation }){
                 onChangeText={(text) => setNome(text)}
                 placeholderText="Digite o nome do jogador"
                 iconType="user"
-                autoCapitalize="none"
-                autoCorrect={false}
             />
 
             <FormInput

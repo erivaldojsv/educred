@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import TelaEmbarque from '../pages/TelaEmbarque';
@@ -15,13 +15,27 @@ import LoginJogador from '../pages/Jogador/LoginJogador';
 import InicialJogador from '../pages/Jogador/InicialJogador';
 import EditarJogador from '../pages/Jogador/EditarJogador';
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome, Entypo } from 'react-native-vector-icons';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import firebase from "../config/firebaseconfig.js";
+
 const Stack = createStackNavigator();
 
+const database = firebase.firestore()
+
 const AuthStack = () => {
+
+
+function logout(id){
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        //navigation.navigate("Login Tutor")
+      }).catch((error) => {
+        // An error happened.
+      });
+}
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
   let routeName;
 
@@ -61,10 +75,25 @@ const AuthStack = () => {
       <Stack.Screen
       name="Login Tutor"
       component={LoginTutor}
-      options={{
-        headerTintColor:"blue",
-        headerShown: false,
-      }}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Inicial')}
+            />
+          </View>
+        ),
+      })}
       />
       <Stack.Screen
       name="Inicial Tutor"
@@ -79,7 +108,7 @@ const AuthStack = () => {
       options={({navigation}) => ({
         title: '',
         headerStyle: {
-          backgroundColor: '#f9fafd',
+          backgroundColor: 'blue',
           shadowColor: '#f9fafd',
           elevation: 0,
         },
@@ -106,9 +135,30 @@ const AuthStack = () => {
       <Stack.Screen
       name="Lista de Jogadores"
       component={ListarJogadorTutor}
-      options={{
-        headerTintColor:"blue",
-      }}
+      options={({navigation}) => ({
+        title: 'Lista de Jogadores',
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+          </View>
+        ),
+        headerRight: () => (
+          <View style={{marginRight: 10}}>
+            <Entypo.Button 
+              name="log-out"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => {navigation.navigate("Login Tutor"),  logout() }}
+            />
+          </View>
+        ),
+      })}
       />
       <Stack.Screen
       name="Movimentar Credito Jogador"
@@ -122,8 +172,9 @@ const AuthStack = () => {
       component={CadastrarJogadorTutor}
       options={({navigation}) => ({
         title: '',
+        headerTintColor: 'white',
         headerStyle: {
-          backgroundColor: '#f9fafd',
+          backgroundColor: 'blue',
           shadowColor: '#f9fafd',
           elevation: 0,
         },
@@ -135,6 +186,17 @@ const AuthStack = () => {
               backgroundColor="#f9fafd"
               color="#333"
               onPress={() => navigation.navigate('Lista de Jogadores')}
+            />
+          </View>
+        ),
+        headerRight: () => (
+          <View style={{marginRight: 10}}>
+            <Entypo.Button 
+              name="log-out"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => {navigation.navigate("Login Tutor"),  logout() }}
             />
           </View>
         ),

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { 
     View,
     Text,
+    ScrollView,
     KeyboardAvoidingView,
     Platform 
 } from "react-native";
@@ -49,8 +50,11 @@ export default function LoginTutor({ navigation }){
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
         >
-            <Text style={styles.title1}>Olá Tutor!</Text>
-            <Text style={styles.title2}>Faça seu login abaixo!</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.viewTitle1}>
+                <Text style={styles.title1}>Olá Tutor!</Text>
+                <Text style={styles.title2}>Faça seu login abaixo!</Text>
+            </View>
             
             <FormInput
                 labelValue={email}
@@ -113,7 +117,7 @@ export default function LoginTutor({ navigation }){
             {Platform.OS === 'android' ? (
                 <View>
                 <SocialButton
-                    buttonTitle="Sign Up with Facebook"
+                    buttonTitle="Acessar com Facebook"
                     btnType="facebook"
                     color="#4867aa"
                     backgroundColor="#e6eaf4"
@@ -121,7 +125,7 @@ export default function LoginTutor({ navigation }){
                 />
 
                 <SocialButton
-                    buttonTitle="Sign Up with Google"
+                    buttonTitle="Acessar com Google"
                     btnType="google"
                     color="#de4d41"
                     backgroundColor="#f5e7ea"
@@ -129,6 +133,7 @@ export default function LoginTutor({ navigation }){
                 />
                 </View>
             ) : null}   
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }

@@ -7,7 +7,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        paddingTop: Platform.OS === "ios" ? 0 : 50
+        paddingTop: Platform.OS === "ios" ? 0 : 25
+    },
+    viewTitle1: {
+        alignItems:'center',
     },
     title1: {
         fontSize: 35,

@@ -85,18 +85,6 @@ export default function ListarJogadorTutor({ navigation, route }){
                     />
                     </Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-                style={styles.buttonLogout} 
-                onPress={() => { logout() }}
-            >
-                <Text style={styles.iconButtonLogout}>
-                    <MaterialCommunityIcons
-                        name="location-exit"
-                        size={23}
-                        color="blue"
-                    />
-                </Text>
-            </TouchableOpacity>
         </View>
     )
 }
