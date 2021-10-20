@@ -6,6 +6,7 @@ import {
     KeyboardAvoidingView,
     Platform 
 } from "react-native";
+import { useRoute } from "@react-navigation/native"
 
 import FormInput from '../../../../components/FormInput';
 import FormButton from '../../../../components/FormButton';
@@ -15,18 +16,26 @@ import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function LoginTutor({ navigation }){
+export default function LoginTutor({ navigation, route }){
     const [email, setEmail] = useState()
     const [senha, setSenha] = useState()
     const [errorLogin, setErrorLogin] = useState("")
 
+    const pagina = useRoute();
+
     const loginFirebase = ()=>{
         firebase.auth().signInWithEmailAndPassword(email, senha)
         .then((userCredential) => {
-            // Signed in
-            let usuario = userCredential.user;
-            navigation.navigate("Lista de Jogadores", { idUsuario: usuario.uid})
-            // ...
+            if (pagina.name !== "Login Tutor") {
+                alert('Não é um Tutor!')
+                console.log(pagina.name);
+            } else {
+                // Signed in
+                let tutor = userCredential.user;
+                navigation.navigate("Lista de Jogadores", { idTutor: tutor.uid})
+                console.log(tutor.uid + " + 1");
+                // ...
+            }
         })
         .catch((error) => {
             setErrorLogin(true)
@@ -34,16 +43,6 @@ export default function LoginTutor({ navigation }){
             let errorMessage = error.message;
         });
     }
-
-    useEffect(()=>{
-        firebase.auth().onAuthStateChanged((usuario) => {
-            if (usuario) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              navigation.navigate("Lista de Jogadores", {idUsuario: usuario.uid})
-            }
-        });
-    }, [])
 
     return(
         <KeyboardAvoidingView
@@ -91,7 +90,7 @@ export default function LoginTutor({ navigation }){
             { email==="" || senha === ""
             ?
             <FormButton
-                disabled={disabled}
+                //disabled={disabled}
                 buttonTitle="Entrar"
             />
             :   

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
     View,
     Text,
@@ -15,8 +15,7 @@ import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function NovoUsuario({ navigation }){
-    const [nivelAcesso, setNivelAcesso] = useState('Jogador');
+export default function NovoUsuario({ navigation, route }){
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
@@ -28,18 +27,26 @@ export default function NovoUsuario({ navigation }){
     const cadastrarJogadorFirebase = () => {
         firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((userCredential) => {
-            database.collection("usuarios")
+
+            let idTutor = route.params?.idTutor;            
+            let idJogador = userCredential.user.uid;
+            let nivelAcesso = '3';
+            let descricaoAcesso = 'Jogador';
+
+            database.collection("jogador")
                 .doc(firebase.auth().currentUser.uid)
                 .set({
+                    idTutor,
+                    idJogador,
                     nivelAcesso,
+                    descricaoAcesso,
                     nome,
                     email
                 })
 
             // Signed in
-            let usuario = userCredential.user;
-            navigation.navigate("Lista de Jogadores", { idUsuario: usuario.uid });
-            console.log(usuario);
+            navigation.navigate("Lista de Jogadores", { idTutor: idTutor });
+            console.log(idTutor + " + 3");
             // ...
         })
         .catch((error) => {

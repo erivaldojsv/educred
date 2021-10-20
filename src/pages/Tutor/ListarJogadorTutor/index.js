@@ -13,28 +13,30 @@ import styles from "./style";
 export default function ListarJogadorTutor({ navigation, route }){
     const [jogador, setJogador] = useState([])
     const database = firebase.firestore()
-    
-    
-    function logout(id){
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            navigation.navigate("Login Tutor")
-          }).catch((error) => {
-            // An error happened.
-          });
-    }
 
     function deleteJogador(id){
-        database.collection(route.params?.idUsuario).doc(id).delete()
+        database.collection("jogador").doc(id).delete()
+
+        const user = firebase.auth().currentUser;
+
+        user.delete(id).then(() => {
+        // User deleted.
+        console.log(id);
+        }).catch((error) => {
+        // An error ocurred
+        // ...
+        });
     }
 
     useEffect(()=>{
-        database.collection(route.params?.idUsuario).onSnapshot((query)=>{
+            const idTutor = route.params?.idTutor;
+            console.log(idTutor + " + 2");
+        database.collection("jogador").where("idTutor", "==", idTutor).onSnapshot((query)=>{
             const lista = []
             query.forEach((doc)=>{
                 lista.push({...doc.data(), id: doc.id })
-            })
-            setJogador(lista)
+            });
+            setJogador(lista);
         })
     }, [])
 
@@ -63,12 +65,12 @@ export default function ListarJogadorTutor({ navigation, route }){
                                 onPress={()=> {
                                     navigation.navigate("Movimentar Credito Jogador",{
                                         id: item.id,
-                                        descricao: item.descricao,
-                                        idUsuario: route.params?.idUsuario
+                                        nome: item.nome,
+                                        idJogador: route.params?.idJogador
                                     })
                                 }}
                             >
-                                {item.descricao}                                
+                                {item.nome}                                
                             </Text>
                         </View>
                     )
@@ -76,7 +78,7 @@ export default function ListarJogadorTutor({ navigation, route }){
                 />
             <TouchableOpacity 
                 style={styles.buttonCadastrarJogador} 
-                onPress={() => navigation.navigate("Cadastrar Jogador", { idUsuario: route.params?.idUsuario })}>
+                onPress={() => navigation.navigate("Cadastrar Jogador", { idTutor: route.params?.idTutor })}>
                 <Text style={styles.iconButtonCadastrarJogador}>
                     <MaterialCommunityIcons
                         name="account-plus-outline"

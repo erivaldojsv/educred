@@ -18,7 +18,6 @@ import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CadastrarTutor({ navigation }){
-    const [nivelAcesso, setNivelAcesso] = useState('Tutor');
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
@@ -27,20 +26,27 @@ export default function CadastrarTutor({ navigation }){
 
     const database = firebase.firestore()
 
-    const cadastrarFirebase = () => {
+    const cadastrarTutorFirebase = () => {
         firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then((userCredential) => {
-            database.collection("usuarios")
+
+            let idTutor = userCredential.user.uid;
+            let nivelAcesso = '2';
+            let descricaoAcesso = 'Tutor';
+
+            database.collection("tutor")
                 .doc(firebase.auth().currentUser.uid)
                 .set({
+                    idTutor,
                     nivelAcesso,
+                    descricaoAcesso,
                     nome,
                     email
                 })
 
             // Signed in
-            let usuario = userCredential.user;
-            navigation.navigate("Inicial Tutor", { idUsuario: usuario.uid })
+            let tutor = userCredential.user;
+            navigation.navigate("Inicial Tutor", { idTutor: tutor.uid })
             // ...
         })
         .catch((error) => {
@@ -115,7 +121,7 @@ export default function CadastrarTutor({ navigation }){
             :            
             <FormButton
                 buttonTitle="Cadastrar"
-                onPress={cadastrarFirebase}
+                onPress={cadastrarTutorFirebase}
             />            
             }            
 
