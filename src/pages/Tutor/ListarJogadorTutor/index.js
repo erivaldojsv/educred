@@ -16,16 +16,6 @@ export default function ListarJogadorTutor({ navigation, route }){
 
     function deleteJogador(id){
         database.collection("jogador").doc(id).delete()
-
-        const user = firebase.auth().currentUser;
-
-        user.delete(id).then(() => {
-        // User deleted.
-        console.log(id);
-        }).catch((error) => {
-        // An error ocurred
-        // ...
-        });
     }
 
     useEffect(()=>{

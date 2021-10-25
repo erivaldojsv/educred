@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { 
     View,
     Text,
-    TextInput,
     TouchableOpacity,
     ScrollView,
     KeyboardAvoidingView,
@@ -12,8 +11,8 @@ import {
 import FormInput from '../../../../components/FormInput';
 import FormButton from '../../../../components/FormButton';
 import SocialButton from '../../../../components/SocialButton';
+import { AuthContext } from '../../../navegacao/AuthProvider';
 
-import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -24,38 +23,7 @@ export default function CadastrarTutor({ navigation }){
     const [confirmaSenha, setConfirmaSenha] = useState();
     const [errorCadastrar, setErrorCadastrar] = useState("");
 
-    const database = firebase.firestore()
-
-    const cadastrarTutorFirebase = () => {
-        firebase.auth().createUserWithEmailAndPassword(email, senha)
-        .then((userCredential) => {
-
-            let idTutor = userCredential.user.uid;
-            let nivelAcesso = '2';
-            let descricaoAcesso = 'Tutor';
-
-            database.collection("tutor")
-                .doc(firebase.auth().currentUser.uid)
-                .set({
-                    idTutor,
-                    nivelAcesso,
-                    descricaoAcesso,
-                    nome,
-                    email
-                })
-
-            // Signed in
-            let tutor = userCredential.user;
-            navigation.navigate("Inicial Tutor", { idTutor: tutor.uid })
-            // ...
-        })
-        .catch((error) => {
-            setErrorCadastrar(true)
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            // ..
-        });
-    }
+    const {register} = useContext(AuthContext);
 
     return(
         <KeyboardAvoidingView
@@ -121,7 +89,7 @@ export default function CadastrarTutor({ navigation }){
             :            
             <FormButton
                 buttonTitle="Cadastrar"
-                onPress={cadastrarTutorFirebase}
+                onPress={() => register(email, senha)}
             />            
             }            
 

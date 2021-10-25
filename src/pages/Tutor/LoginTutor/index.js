@@ -31,9 +31,9 @@ export default function LoginTutor({ navigation, route }){
                 console.log(pagina.name);
             } else {
                 // Signed in
-                let tutor = userCredential.user;
-                navigation.navigate("Lista de Jogadores", { idTutor: tutor.uid})
-                console.log(tutor.uid + " + 1");
+                let usuario = userCredential.user;
+                navigation.navigate("Lista de Jogadores", { idTutor: usuario.uid})
+                console.log(usuario.uid + " + 1");
                 // ...
             }
         })
@@ -43,6 +43,16 @@ export default function LoginTutor({ navigation, route }){
             let errorMessage = error.message;
         });
     }
+
+    useEffect(()=>{
+        firebase.auth().onAuthStateChanged((usuario) => {
+            if (usuario) {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              navigation.navigate("Lista de Jogadores", {idTutor: usuario.uid})
+            }
+        });
+    }, [])
 
     return(
         <KeyboardAvoidingView
