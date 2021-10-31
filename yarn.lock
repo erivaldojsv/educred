@@ -1243,6 +1243,11 @@
   "resolved" "https://registry.npmjs.org/@expo/config-types/-/config-types-43.0.0.tgz"
   "version" "43.0.0"
 
+"@expo/config-types@^43.0.1":
+  "integrity" "sha512-EtllpCGDdB/UdwAIs5YXJwBLpbFQNdlLLrxIvoILA9cXrpQMWkeDCT9lQPJzFRMFcLUaMuGvkzX2tR4tx5EQFQ=="
+  "resolved" "https://registry.npmjs.org/@expo/config-types/-/config-types-43.0.1.tgz"
+  "version" "43.0.1"
+
 "@expo/config@^4.0.0":
   "integrity" "sha512-O3xRlwMCidOgk1WHIy6eOjh2yp0h/kgBDRNKqPe21+YDiOufyTGGNvbWgHwoax8goa1iMg443WQO7GhvaH286g=="
   "resolved" "https://registry.npmjs.org/@expo/config/-/config-4.0.4.tgz"
@@ -2112,6 +2117,11 @@
   "integrity" "sha512-YnutHqhYu1ql64+maVQ7YreJpn9QRI7KeknQEdZUR/t6co9nks3FRx26Zm5GHkRYJ/0HVtqlnhmtX5cJ4CZ/gg=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-12.9.1.tgz"
   "version" "12.9.1"
+
+"@react-native-google-signin/google-signin@^7.0.1":
+  "integrity" "sha512-iG1OkFx1ohSupofWnlbV+Re74L2HF823SOL1KNl1gGDiVxzNKJTZm/wuaPuujzci4kr8GuwR9PRgxLShiAZwlg=="
+  "resolved" "https://registry.npmjs.org/@react-native-google-signin/google-signin/-/google-signin-7.0.1.tgz"
+  "version" "7.0.1"
 
 "@react-native-masked-view/masked-view@^0.2.3", "@react-native-masked-view/masked-view@^0.2.6":
   "integrity" "sha512-303CxmetUmgiX9NSUxatZkNh9qTYYdiM8xkGf9I3Uj20U3eGY3M78ljeNQ4UVCJA+FNGS5nC1dtS9GjIqvB4dg=="
@@ -3720,6 +3730,15 @@
     "snapdragon" "^0.8.1"
     "to-regex" "^3.0.1"
 
+"expo-app-auth@~11.0.2":
+  "integrity" "sha512-vw6rWfrVAKFaDB/VShEZYH/Vsd2dYp5BS4Vuq3UARDlrCNwNumO8AualmffTc42k13RTBlKhGoaxUaol/UiTUA=="
+  "resolved" "https://registry.npmjs.org/expo-app-auth/-/expo-app-auth-11.0.3.tgz"
+  "version" "11.0.3"
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    "expo-modules-core" "~0.4.4"
+    "invariant" "^2.2.4"
+
 "expo-application@~3.2.0":
   "integrity" "sha512-NDPQAtB05Jeiw771bDYsecbLrLA39X33Jk8uP1VUVdHMy6cCfJrL8PSDssgMLElAzR94K8toeqdGsGx9mVv8zw=="
   "resolved" "https://registry.npmjs.org/expo-application/-/expo-application-3.2.0.tgz"
@@ -3767,6 +3786,13 @@
     "expo-modules-core" "~0.2.0"
     "fontfaceobserver" "^2.1.0"
 
+"expo-google-app-auth@^8.2.4":
+  "integrity" "sha512-ZMhJFimwuWAv+0tjGz28vuSIunqSoV5Fk2WIK5gGJWgkF/KksiCNLEqNKM4zHlCVAjszoBUE3MMtGUsNDn1Yvw=="
+  "resolved" "https://registry.npmjs.org/expo-google-app-auth/-/expo-google-app-auth-8.2.4.tgz"
+  "version" "8.2.4"
+  dependencies:
+    "expo-app-auth" "~11.0.2"
+
 "expo-image-loader@~2.2.0":
   "integrity" "sha512-kTs/lW8LUXYFQ5t8wkdJs0A41zd7dIB8uRRC0a9L0EurSGUvQWiVTbHQoLo/GYWL7nM85OaPAe2qkHfcz5KeyA=="
   "resolved" "https://registry.npmjs.org/expo-image-loader/-/expo-image-loader-2.2.0.tgz"
@@ -3792,6 +3818,14 @@
   "integrity" "sha512-inpfZ5X/BaTtbj2wG9PA9AC0MN8VyId6KSRlVuEg7+ziurHBy/kKDFxpOddUokhwiln2uhoYPSStJjR/tKypdw=="
   "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.2.0.tgz"
   "version" "0.2.0"
+
+"expo-modules-core@~0.4.4":
+  "integrity" "sha512-ns9kQn1titPlDsmuKNfyxUui1Nf338d+oIHb/N8jlneKukFwgQxxc5CwyKHrNKNxcUVzumpStSi4sHquKBmOiA=="
+  "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.4.6.tgz"
+  "version" "0.4.6"
+  dependencies:
+    "compare-versions" "^3.4.0"
+    "invariant" "^2.2.4"
 
 "expo-status-bar@~1.0.4":
   "integrity" "sha512-s7nc496D/Zn1NGiMJ5wu6HyIdXxbgGtmZZtbHm7rpbcmLdf28GmMSNHDx7M0t00BMhky7VAurTCUo+BJs8ugsw=="
@@ -7984,7 +8018,7 @@
   "resolved" "https://registry.npmjs.org/xdg-basedir/-/xdg-basedir-4.0.0.tgz"
   "version" "4.0.0"
 
-"xml2js@^0.4.23":
+"xml2js@^0.4.23", "xml2js@0.4.23":
   "integrity" "sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug=="
   "resolved" "https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz"
   "version" "0.4.23"

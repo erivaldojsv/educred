@@ -75,6 +75,29 @@ const AuthStack = () => {
       })}
       />
       <Stack.Screen
+      name="Cadastrar Tutor"
+      component={CadastrarTutor}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Login Tutor')}
+            />
+          </View>
+        ),
+      })}
+      />
+      <Stack.Screen
       name="Lista de Jogadores"
       component={ListarJogadorTutor}
       options={({navigation}) => ({
