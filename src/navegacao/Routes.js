@@ -16,7 +16,7 @@ const Routes = () => {
     setUser(user);
     if (user) {
       if(initializing) setInitializing(false);
-      console.log(user.uid);
+      console.log(user.uid + " + Routes");
     }
   }
 

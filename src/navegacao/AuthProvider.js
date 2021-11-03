@@ -6,7 +6,8 @@ import firebase from "../config/firebaseconfig";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-  const [user, setUser] = useState(null);  
+  const [user, setUser] = useState(null);
+  const [errorCadastrar, setErrorCadastrar] = useState("");  
 
   const database = firebase.firestore()
 
@@ -22,7 +23,7 @@ export const AuthProvider = ({children}) => {
             console.log(e);
           }
         },
-        register: async (email, password) => {
+        register: async (email, password, tutorNome) => {
           try {
             await firebase.auth().createUserWithEmailAndPassword(email, password)
               .then((userCredential) => {
@@ -30,6 +31,8 @@ export const AuthProvider = ({children}) => {
                   let idTutor = userCredential.user.uid;
                   let nivelAcesso = '2';
                   let descricaoAcesso = 'Tutor';
+                  let emailTutor = userCredential.user.email;
+                  let nomeTutor = tutorNome;
 
                   database.collection("tutor")
                       .doc(firebase.auth().currentUser.uid)
@@ -37,17 +40,14 @@ export const AuthProvider = ({children}) => {
                           idTutor,
                           nivelAcesso,
                           descricaoAcesso,
-                          nome,
-                          email
+                          emailTutor,
+                          nomeTutor
                       })
 
-                  // Signed in
-                  let tutor = userCredential.user;
-                  navigation.navigate("Inicial Tutor", { idTutor: tutor.uid })
-                  // ...
+                      console.log(idTutor + " " + nivelAcesso + " " + descricaoAcesso + "-" + "AuthProvider");
+
               })
               .catch((error) => {
-                  setErrorCadastrar(true)
                   let errorCode = error.code;
                   let errorMessage = error.message;
                   // ..

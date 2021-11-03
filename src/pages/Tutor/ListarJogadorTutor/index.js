@@ -19,8 +19,8 @@ export default function ListarJogadorTutor({ navigation, route }){
     }
 
     useEffect(()=>{
-            const idTutor = route.params?.idTutor;
-            console.log(idTutor + " + 2");
+        const idTutor = route.params?.idTutor;
+        console.log(idTutor + " + Lista Jogador - useEffect");
         database.collection("jogador").where("idTutor", "==", idTutor).onSnapshot((query)=>{
             const lista = []
             query.forEach((doc)=>{

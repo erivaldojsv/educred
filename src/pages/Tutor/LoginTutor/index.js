@@ -29,13 +29,13 @@ export default function LoginTutor({ navigation, route }){
         firebase.auth().signInWithEmailAndPassword(email, senha)
         .then((userCredential) => {
             if (pagina.name !== "Login Tutor") {
-                alert('Não é um Tutor!')
+                alert("Não é a Tela de Login de Tutor")
                 console.log(pagina.name);
             } else {
                 // Signed in
                 let usuario = userCredential.user;
                 navigation.navigate("Lista de Jogadores", { idTutor: usuario.uid})
-                console.log(usuario.uid + " + 1");
+                console.log(usuario.uid + " + Login Tutor carregando lista de jogadores");
                 // ...
             }
         })
@@ -120,6 +120,8 @@ export default function LoginTutor({ navigation, route }){
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               navigation.navigate("Lista de Jogadores", {idTutor: usuario.uid})
+            } else if (usuario && pagina.name !== "Login Tutor") {
+              alert("Não é a Tela de Login de Tutor");
             }
         });
     }, [])

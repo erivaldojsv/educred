@@ -31,7 +31,7 @@ const AuthStack = () => {
 
   if (isFirstLaunch === null) {
     return null; // Mudar "false" para "true", para mostrar tela de embarque só no primeiro acesso ao App. This is the 'tricky' part: The query to AsyncStorage is not finished, but we have to present something to the user. Null will just render nothing, so you can also put a placeholder of some sort, but effectively the interval between the first mount and AsyncStorage retrieving your data won't be noticeable to the user. But if you want to display anything then you can use a LOADER here
-  } else if (isFirstLaunch == false) {
+  } else if (isFirstLaunch == true) {
     routeName = 'TelaEmbarque';
   } else {
     routeName = 'Inicial';

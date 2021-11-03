@@ -16,7 +16,7 @@ import { AuthContext } from '../../../navegacao/AuthProvider';
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function CadastrarTutor({ navigation }){
+export default function CadastrarTutor({ navigation, route }){
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
@@ -89,7 +89,7 @@ export default function CadastrarTutor({ navigation }){
             :            
             <FormButton
                 buttonTitle="Cadastrar"
-                onPress={() => register(email, senha)}
+                onPress={() => register(email, senha, nome)}
             />            
             }            
 

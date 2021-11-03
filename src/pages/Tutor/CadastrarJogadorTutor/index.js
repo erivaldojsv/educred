@@ -15,12 +15,12 @@ import firebase from "../../../config/firebaseconfig";
 import styles from "./style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function NovoUsuario({ navigation, route }){
+export default function CadastrarJogadorTutor({ navigation, route }){
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [confirmaSenha, setConfirmaSenha] = useState();
-    const [errorCadastrar, setErrorCadastrar] = useState("");
+    const [errorCadastrarJogador, setErrorCadastrarJogador] = useState("");
 
     const database = firebase.firestore()
 
@@ -46,7 +46,7 @@ export default function NovoUsuario({ navigation, route }){
 
             // Signed in
             navigation.navigate("Lista de Jogadores", { idTutor: idTutor });
-            console.log(idTutor + " + 3");
+            console.log(idTutor + " + Cadastra Jogador");
             // ...
         })
         .catch((error) => {
@@ -97,7 +97,7 @@ export default function NovoUsuario({ navigation, route }){
               secureTextEntry={true}
             />
 
-            {errorCadastrar === true
+            {errorCadastrarJogador === true
             ?
             <View style={styles.contentAlert}>
                 <MaterialCommunityIcons
