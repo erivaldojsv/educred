@@ -3,10 +3,11 @@ import {View, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import TelaEmbarque from '../pages/TelaEmbarque';
-import Inicial from '../pages/Inicial';
+import TelaInicial from '../pages/TelaInicial';
 import LoginTutor from '../pages/Tutor/LoginTutor';
-import ListarJogadorTutor from '../pages/Tutor/ListarJogadorTutor';
 import CadastrarTutor from '../pages/Tutor/CadastrarTutor';
+import LoginJogador from '../pages/Jogador/LoginJogador';
+import CadastrarJogador from '../pages/Jogador/CadastrarJogador';
 
 import { FontAwesome, Entypo } from 'react-native-vector-icons';
 
@@ -34,7 +35,7 @@ const AuthStack = () => {
   } else if (isFirstLaunch == true) {
     routeName = 'TelaEmbarque';
   } else {
-    routeName = 'Inicial';
+    routeName = 'TelaInicial';
   }
 
   return (
@@ -45,8 +46,8 @@ const AuthStack = () => {
         options={{header: () => null}}
       />
       <Stack.Screen
-      name="Inicial"
-      component={Inicial}
+      name="TelaInicial"
+      component={TelaInicial}
       options={{
         headerShown: false,
       }}
@@ -68,7 +69,30 @@ const AuthStack = () => {
               size={25}
               backgroundColor="#f9fafd"
               color="#333"
-              onPress={() => navigation.navigate('Inicial')}
+              onPress={() => navigation.navigate('TelaInicial')}
+            />
+          </View>
+        ),
+      })}
+      />
+      <Stack.Screen
+      name="Login Jogador"
+      component={LoginJogador}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('TelaInicial')}
             />
           </View>
         ),
@@ -98,11 +122,10 @@ const AuthStack = () => {
       })}
       />
       <Stack.Screen
-      name="Lista de Jogadores"
-      component={ListarJogadorTutor}
+      name="Cadastrar Jogador"
+      component={CadastrarJogador}
       options={({navigation}) => ({
-        title: 'Lista de Jogadores',
-        headerTintColor: 'white',
+        title: '',
         headerStyle: {
           backgroundColor: 'blue',
           shadowColor: '#f9fafd',
@@ -110,16 +133,12 @@ const AuthStack = () => {
         },
         headerLeft: () => (
           <View style={{marginLeft: 10}}>
-          </View>
-        ),
-        headerRight: () => (
-          <View style={{marginRight: 10}}>
-            <Entypo.Button 
-              name="log-out"
+            <FontAwesome.Button 
+              name="long-arrow-left"
               size={25}
               backgroundColor="#f9fafd"
               color="#333"
-              onPress={() => {navigation.navigate("Login Tutor"),  logout() }}
+              onPress={() => navigation.navigate('Login Jogador')}
             />
           </View>
         ),

@@ -7,23 +7,22 @@ import AppStack from '../navegacao/AppStack';
 
 import firebase from "../config/firebaseconfig";
 
-const Routes = () => {
+const Routes = ({navigation, route}) => {
 
   const {user, setUser} = useContext(AuthContext);
   const {initializing, setInitializing} = useState(true);
 
-  const onAuthStateChanged = (user) => {
-    setUser(user);
-    if (user) {
-      if(initializing) setInitializing(false);
-      console.log(user.uid + " + Routes");
-    }
-  }
-
-  useEffect(() => {
-    const subscribe = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-    return subscribe;
-  }, []);
+  useEffect(()=>{
+      firebase.auth().onAuthStateChanged((user) => {
+          setUser(user);
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            if(initializing) setInitializing(false);
+            console.log(user.uid + " + Routes");
+          }
+      });
+  }, [])
 
   if(initializing) return null;
 

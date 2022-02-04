@@ -9,8 +9,8 @@ const TelaEmbarque = ({ navigation }) => {
         <Onboarding
             skipLabel="Pular"
             nextLabel="Próximo"
-            onSkip={() => navigation.replace("Inicial")}
-            onDone={() => navigation.navigate("Inicial")}
+            onSkip={() => navigation.replace("TelaInicial")}
+            onDone={() => navigation.navigate("TelaInicial")}
             pages={[
                 {
                 backgroundColor: '#a6e4d0',

@@ -2,21 +2,20 @@ import React from 'react';
 import {View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Inicial from '../pages/Inicial';
+import TelaInicial from '../pages/TelaInicial';
 import LoginTutor from '../pages/Tutor/LoginTutor';
 import CadastrarTutor from '../pages/Tutor/CadastrarTutor';
 import InicialTutor from '../pages/Tutor/InicialTutor';
-import EditarTutor from '../pages/Tutor/EditarTutor';
-import CadastrarJogadorTutor from '../pages/Tutor/CadastrarJogadorTutor';
-import ListarJogadorTutor from '../pages/Tutor/ListarJogadorTutor';
-import MovimentarCreditoJogador from '../pages/Tutor/MovimentarCreditoJogador';
+import CadastrarEquipeTutor from '../pages/Tutor/CadastrarEquipeTutor';
 import LoginJogador from '../pages/Jogador/LoginJogador';
+import CadastrarJogador from '../pages/Jogador/CadastrarJogador';
 import InicialJogador from '../pages/Jogador/InicialJogador';
-import EditarJogador from '../pages/Jogador/EditarJogador';
+import DetalheEquipe from '../pages/Tutor/DetalheEquipe';
 
 import firebase from "../config/firebaseconfig.js";
 
 import { FontAwesome, Entypo } from 'react-native-vector-icons';
+import ListaEquipeTutor from '../pages/Tutor/ListaEquipeTutor';
 
 const Stack = createStackNavigator();
 
@@ -32,10 +31,10 @@ function logout(id){
 }
 
   return (
-    <Stack.Navigator initialRouteName={"Inicial"}>
+    <Stack.Navigator initialRouteName={"TelaInicial"}>
       <Stack.Screen
-      name="Inicial"
-      component={Inicial}
+      name="TelaInicial"
+      component={TelaInicial}
       options={{
         headerShown: false,
       }}
@@ -57,18 +56,17 @@ function logout(id){
               size={25}
               backgroundColor="#f9fafd"
               color="#333"
-              onPress={() => navigation.navigate('Inicial')}
+              onPress={() => navigation.navigate('TelaInicial')}
             />
           </View>
         ),
       })}
       />
       <Stack.Screen
-      name="Lista de Jogadores"
-      component={ListarJogadorTutor}
+      name="Login Jogador"
+      component={LoginJogador}
       options={({navigation}) => ({
-        title: 'Lista de Jogadores',
-        headerTintColor: 'white',
+        title: '',
         headerStyle: {
           backgroundColor: 'blue',
           shadowColor: '#f9fafd',
@@ -76,8 +74,74 @@ function logout(id){
         },
         headerLeft: () => (
           <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('TelaInicial')}
+            />
           </View>
         ),
+      })}
+      />
+      <Stack.Screen
+      name="Cadastrar Tutor"
+      component={CadastrarTutor}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Login Tutor')}
+            />
+          </View>
+        ),
+      })}
+      />
+      <Stack.Screen
+      name="Cadastrar Jogador"
+      component={CadastrarJogador}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Login Jogador')}
+            />
+          </View>
+        ),
+      })}
+      />
+      <Stack.Screen
+      name="Cadastrar Equipe"
+      component={CadastrarEquipeTutor}
+      options={({navigation}) => ({
+        title: '',
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: 'blue',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
         headerRight: () => (
           <View style={{marginRight: 10}}>
             <Entypo.Button 
@@ -95,63 +159,6 @@ function logout(id){
       name="Inicial Tutor"
       component={InicialTutor}
       options={{
-        headerTintColor:"blue",
-      }}
-      />
-      <Stack.Screen
-      name="Editar Tutor"
-      component={EditarTutor}
-      options={{
-        headerTintColor:"blue",
-      }}
-      />
-      <Stack.Screen
-      name="Movimentar Credito Jogador"
-      component={MovimentarCreditoJogador}
-      options={{
-        headerTintColor:"blue",
-      }}
-      />
-      <Stack.Screen
-      name="Cadastrar Jogador"
-      component={CadastrarJogadorTutor}
-      options={({navigation}) => ({
-        title: '',
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: 'blue',
-          shadowColor: '#f9fafd',
-          elevation: 0,
-        },
-        headerLeft: () => (
-          <View style={{marginLeft: 10}}>
-            <FontAwesome.Button 
-              name="long-arrow-left"
-              size={25}
-              backgroundColor="#f9fafd"
-              color="#333"
-              onPress={() => navigation.navigate('Lista de Jogadores')}
-            />
-          </View>
-        ),
-        headerRight: () => (
-          <View style={{marginRight: 10}}>
-            <Entypo.Button 
-              name="log-out"
-              size={25}
-              backgroundColor="#f9fafd"
-              color="#333"
-              onPress={() => {navigation.navigate("Login Tutor"),  logout() }}
-            />
-          </View>
-        ),
-      })}
-      />
-      <Stack.Screen
-      name="Login Jogador"
-      component={LoginJogador}
-      options={{
-        headerTintColor:"blue",
         headerShown: false,
       }}
       />
@@ -163,8 +170,8 @@ function logout(id){
       }}
       />
       <Stack.Screen
-      name="Editar Jogador"
-      component={EditarJogador}
+      name="Detalhe Equipe"
+      component={DetalheEquipe}
       options={{
         headerTintColor:"blue",
       }}

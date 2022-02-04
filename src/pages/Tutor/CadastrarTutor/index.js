@@ -23,7 +23,7 @@ export default function CadastrarTutor({ navigation, route }){
     const [confirmaSenha, setConfirmaSenha] = useState();
     const [errorCadastrar, setErrorCadastrar] = useState("");
 
-    const {register} = useContext(AuthContext);
+    const {cadastrarTutor} = useContext(AuthContext);
 
     return(
         <KeyboardAvoidingView
@@ -31,7 +31,10 @@ export default function CadastrarTutor({ navigation, route }){
             style={styles.container}
         >
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.viewTitle1}><Text style={styles.title1}>Criar uma Conta</Text></View>
+            <View style={styles.viewTitle1}>
+                <Text style={styles.title1}>Olá Tutor!</Text>
+                <Text style={styles.title2}>Crie sua conta!</Text>
+            </View>
 
             <FormInput
                 labelValue={nome}
@@ -89,7 +92,7 @@ export default function CadastrarTutor({ navigation, route }){
             :            
             <FormButton
                 buttonTitle="Cadastrar"
-                onPress={() => register(email, senha, nome)}
+                onPress={() => cadastrarTutor(email, senha, nome)}
             />            
             }            
 

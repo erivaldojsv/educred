@@ -1,8 +1,10 @@
 import React from 'react';
-import Providers from './src/navegacao'
+import Providers from './src/navegacao';
 
 const App = () => {
-  return <Providers />;
+  return (   
+    <Providers />    
+  )
 }
 
 export default App;
